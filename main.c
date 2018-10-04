@@ -1,23 +1,27 @@
-
 #include "c1069c.h"
 #include "calibration.h"
+#include "delay.h"
+#include "emulator.h"
 #include "init.h"
 #include "hwconfig.h"
 
 uint16_t signalBuffer[48];
-uint8_t signalCnt;
+uint16_t *signalPtr = signalBuffer;
 uint8_t refreshSignal = 1;
 
-typedef enum {
-    EmulatorMode_C1069,
-    EmulatorMode_PPM 
-} EmulatorMode_t;
 EmulatorMode_t emulatorMode = EmulatorMode_C1069;
 
 int main(void)
 {
-    uint8_t bufferIndex = 0;
     HW_Init();
+
+    /*PD_DDR = 255;
+    while (1) {
+        PD_ODR_bits.ODR3 = 0;
+        __delay_ms(1000);
+        PD_ODR_bits.ODR3 = 1;
+        __delay_ms(1000);
+    }*/
 
     GlobalInterruptEnable();
 
@@ -42,21 +46,22 @@ int main(void)
                 break;
             }
 
-            bufferIndex = 0;
-            TIM1_CR1_bits.CEN = 1;
-            while (bufferIndex < signalCnt) {
+			signalPtr = signalBuffer;
+            while (*signalPtr != 0) {
                 ENCODED_SIGNAL = !ENCODED_SIGNAL;
-                TIM2_ARRH = (UINT16_MAX - (signalBuffer[bufferIndex] >> 8));
-                TIM2_ARRL = (UINT16_MAX - (signalBuffer[bufferIndex] & 0xFF));
+				TIM2_CNTRL = ((UINT16_MAX - (*signalPtr)) & 0xFF);
+                TIM2_CNTRH = ((UINT16_MAX - (*signalPtr)) >> 8);
+				TIM2_SR1_bits.UIF = 0;
                 TIM2_CR1_bits.CEN = 1;
-
-                while (signalCnt) {
-
-                }
-                bufferIndex++;
+                while (!TIM2_SR1_bits.UIF) {
+				    NOP();
+				}
+                signalPtr++;
             }
             ENCODED_SIGNAL = 0;
             refreshSignal = 0;
+			TIM1_SR1_bits.UIF = 0;
+            TIM1_CR1_bits.CEN = 1;
         }
     } // main while
 

@@ -1,6 +1,7 @@
 #include "c1069c.h"
 
 #include "calibration.h"
+#include "hwconfig.h"
 
 /**
  * @brief C1069C_calculateBuffer
@@ -32,59 +33,76 @@ There is a static end part:
 #define BACKWARD_MAX (LINEARIZED_CENTER - (LINEARIZED_CENTER * DEADZONE))
 #define FORWARD_MIN (LINEARIZED_CENTER + (LINEARIZED_CENTER * DEADZONE))
 
-#define TURBO_MIN LINEARIZED_MAX - ((LINEARIZED_MAX - FORWARD_MIN) >> 1)
+#define TURBO_MIN (LINEARIZED_MAX - ((LINEARIZED_MAX - FORWARD_MIN)/2))
 
-#define HORN_ON 0
+#define HORN_ON BTN0
 
 extern uint16_t signalBuffer[48];
-extern uint16_t *signalCnt;
+extern uint16_t *signalPtr;
 
 void C1069C_calculateBuffer(void)
 {
-    uint8_t signalBufferIndex = 0;
     uint8_t steer = linearizedValue(STEER_CHANNEL);
     uint8_t throttle = linearizedValue(THROTTLE_CHANNEL);
 
-    signalBuffer[signalBufferIndex++] = 168;
+    signalPtr = signalBuffer;
+    *signalPtr = 168;
+    signalPtr++;
     if (steer < STEER_LEFT_MAX) {
         // we steer left
-        signalBuffer[signalBufferIndex++] = 252;
+        *signalPtr = 252;
+        signalPtr++;
     } else if (STEER_RIGHT_MIN < steer) {
         // we steer right
-        signalBuffer[signalBufferIndex++] = 3706;
+        *signalPtr = 3706;
+        signalPtr++;
     } else {
         // steer neutral
-        signalBuffer[signalBufferIndex++] = 1433;
+        *signalPtr = 1433;
+        signalPtr++;
     }
 
-    signalBuffer[signalBufferIndex++] = 168;
+    *signalPtr = 168;
+    signalPtr++;
     if (throttle < BACKWARD_MAX) {
         // backward is pressed
-        signalBuffer[signalBufferIndex++] = 3706;
+        *signalPtr = 3706;
+        signalPtr++;
     } else if (FORWARD_MIN < throttle) {
         // we go forward
-        signalBuffer[signalBufferIndex++] = 252;
+        *signalPtr = 252;
+        signalPtr++;
         if (TURBO_MIN < throttle) {
             // we go in turbo mode
-            signalBuffer[signalBufferIndex++] = 168;
-            signalBuffer[signalBufferIndex++] = 500;
+            *signalPtr = 168;
+            signalPtr++;
+            *signalPtr = 500;
+            signalPtr++;
         }
     } else {
         // throttle off neutral
-        signalBuffer[signalBufferIndex++] = 168;
-        signalBuffer[signalBufferIndex++] = 1433;
+        *signalPtr = 168;
+        signalPtr++;
+        *signalPtr = 1433;
+        signalPtr++;
     }
 
     if (HORN_ON) {
-        signalBuffer[signalBufferIndex++] = 168;
-        signalBuffer[signalBufferIndex++] = 500;
-        signalBuffer[signalBufferIndex++] = 168;
-        signalBuffer[signalBufferIndex++] = 500;
+        *signalPtr = 168;
+        signalPtr++;
+        *signalPtr = 500;
+        signalPtr++;
+        *signalPtr = 168;
+        signalPtr++;
+        *signalPtr = 500;
     }
 
-    signalBuffer[signalBufferIndex++] = 168;
-    signalBuffer[signalBufferIndex++] = 500;
-    signalBuffer[signalBufferIndex++] = 168;
-
-    signalCnt = signalBufferIndex;
+    *signalPtr = 168;
+    signalPtr++;
+    *signalPtr = 500;
+    signalPtr++;
+    *signalPtr = 168;
+    signalPtr++;
+    // closing 0
+    *signalPtr = 0;
 }

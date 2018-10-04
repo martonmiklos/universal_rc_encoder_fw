@@ -2,6 +2,7 @@
 
 #include "iostm8s003f3.h"
 #include "stdint.h"
+#include "hwconfig.h"
 
 void HW_Init(void)
 {
@@ -87,16 +88,36 @@ void HW_Init(void)
     ADC_CSR_bits.EOCIE = 1; // enable end of conversion ISR
 
 
+
     // **************************************************************
-    // Timer 2: 65.5 ms timer (for seed time count 1 us tick timer)
+    // Timer 1: 25 ms timer for refresh the signals
+    // **************************************************************
+    TIM1_PSCRL = 15;
+	TIM1_CR1_bits.DIR = 1;
+
+    TIM1_ARRH = (TIMER1_TOP >> 8) & 0xFF;
+    TIM1_ARRL = (TIMER1_TOP     ) & 0xFF;
+
+    // enable OVF interrupt
+    TIM1_IER_bits.UIE = 1;
+
+    // one pulse mode
+    TIM1_CR1_bits.OPM = 1;
+
+    // **************************************************************
+    // Timer 2: 1us tick timer for signal countdown
     // **************************************************************
 
     // prescaler = 16
-    TIM2_PSCR_bits.PSC = 4;
+    TIM2_PSCR_bits.PSC = 8;
 
     // update generation is needed to have the prescaler
     // buffered
     TIM2_EGR_bits.UG = 1;
+
+	// one shot mode
+    TIM2_CR1_bits.OPM = 1;
+	TIM2_CR1_bits.ARPE = 1;
 }
 
 

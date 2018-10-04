@@ -1,0 +1,12 @@
+;	STMicroelectronics Workspace file
+
+[Version]
+Keyword=ST7Workspace-V0.7
+
+[Project0]
+Filename=rc_emulator.stp
+Dependencies=
+[Options]
+ActiveProject=rc_emulator
+ActiveConfig=Debug
+AddSortedElements=1

@@ -7,7 +7,7 @@ uint16_t adcData[ADC_CHANNEL_COUNT];
 
 uint8_t adcScanCompleteFlag = 0;
 
-void ADC_CompleteISR(void)  __interrupt(ADC1_EOC_vector)
+@far @interrupt void ADC_CompleteISR(void)
 {
     // read order is important!!
     adcData[currentADCChannel]  =  ADC_DRL;

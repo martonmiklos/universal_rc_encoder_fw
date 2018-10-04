@@ -14,13 +14,15 @@
 #error F_CPU is not defined!
 #endif
 
+#if defined(__CSMC__)
 #define T_COUNT(x) ((( F_CPU * x / 1000000UL )-3)/3)
+#elif defined(__SDCC)
+#define T_COUNT(x) ((( F_CPU * x / 1000000UL )-5)/5)
+#endif
 
-#ifdef NOP_DELAY
-void __delay_cycl(const uint16_t ticks);
+void __delay_cycl(uint16_t ticks);
 void __delay_us(const uint16_t us);
 void __delay_ms(uint16_t ms);
-#endif
 
 void WaitMs(uint16_t ms);
 #endif

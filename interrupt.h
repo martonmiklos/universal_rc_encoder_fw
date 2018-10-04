@@ -14,7 +14,7 @@
 extern "C" {
 #endif
 
-void RX_IOC(void) __interrupt(TIM2_CAPCOM_CC1IF_vector);
+@far @interrupt void Timer1_OVF_ISR(void);
 
 #ifdef	__cplusplus
 }

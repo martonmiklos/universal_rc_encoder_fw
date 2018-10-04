@@ -19,7 +19,7 @@ void initCalibration()
     }
 }
 
-void calibrationCycle()
+void calibrationCycle(void)
 {
     uint8_t i = 0;
     if (adcScanCompleteFlag) {
