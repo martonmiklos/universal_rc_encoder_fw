@@ -13,17 +13,17 @@
 #define GlobalInterruptDisable() { _asm("sim");}
 #define NOP() {_asm("nop");}
 
-#define RED_LED                                 PA_ODR_bits.ODR3
-#define RED_LED_port                            PA_ODR
-#define RED_LED_port_mask                       (1<<3)
+#define RED_LED                              PA_ODR_bits.ODR3
+#define RED_LED_port                         PA_ODR
+#define RED_LED_port_mask                    (1<<3)
 
-#define ENCODED_SIGNAL                          PD_ODR_bits.ODR4
-#define ENCODED_SIGNAL_port                            PD_ODR
-#define ENCODED_SIGNAL_port_mask                       (1<<4)
+#define ENCODED_SIGNAL                       PD_ODR_bits.ODR4
+#define ENCODED_SIGNAL_port                  PD_ODR
+#define ENCODED_SIGNAL_port_mask             (1<<4)
 
-#define CAL_SWITCH                                 PA_IDR_bits.IDR1
-#define CAL_SWITCH_port                            PA_IDR
-#define CAL_SWITCH_port_mask                       (1<<4)
+#define CAL_SWITCH                           PA_IDR_bits.IDR1
+#define CAL_SWITCH_port                      PA_IDR
+#define CAL_SWITCH_port_mask                 (1<<4)
 
 #define BTN0                                 PC_IDR_bits.IDR3
 #define BTN0_port                            PC_IDR
@@ -41,8 +41,9 @@
 #define BTN3_port                            PC_IDR
 #define BTN3_port_mask                       (1<<7)
 
+#define BTN_ACTIVE 			                 0
 
-#define TIMER1_TOP 40000
+#define TIMER1_TOP 30000
 
 #endif // HWCONFIG_H
 

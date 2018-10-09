@@ -45,31 +45,32 @@ void HW_Init(void)
     PB_ODR = 0b00010000;
 
     /*
-     * PC7: GPIO_Output      - IR_SWITCH_PWM
-     * PC6: GPIO_Output      - DATA_ADDR
-     * PC5: GPIO_Output      - BLUE_LED
-     * PC4: GPIO_Analog      - ADC_SEED
-     * PC3: GPIO_Output      - IR_CURR_PWM
+     * PC7: GPIO_Input      - BTN3
+     * PC6: GPIO_Input      - BTN2
+     * PC5: GPIO_Input      - BTN1
+     * PC3: GPIO_Input      - BTN0
      */
-    PC_DDR = 0b11101000;
+    PC_DDR = 0b00010111;
 
-    // non LEDs outputs are push pull
-    PC_CR1 = 0b11001000;
+	// pullup on all inputs
+    PC_CR1 = 0b11101000;
 
     /*
-     * PD6: UART1_RX         - RX_OR_ADC_DATA_P
-     * PD5: UART1_TX         - TX
-     * PD4: GPIO_Output      - GREEN_LED
-     * PD3: GPIO_Analog      - IR_CURRENT
-     * PD2: GPIO_Analog      - ADC_POWER
+	 * PD6: ADC4
+	 * PD5: ADC3
+     * PD4: GPIO_Output      - Encoded output
+	 * PD3: ADC2
+	 * PD2: ADC1
      * PD1: SYS_SWIM         - Not used
      */
 
-    PD_DDR = 0b00110000;
-    // Set green LED to high (LEDs are active low)
-    PD_ODR = 0b00110000;
-    // GREEN LED, TX should be push pull
-    PD_CR1 = 0b00100000;
+    PD_DDR = 0b00010000;
+	
+	// encoded pin starts at high
+    PD_ODR = 0b00010000;
+
+	// encoded output is pushpull FIXME configure it to open drain
+    PD_CR1 = 0b00010000;
 
 
     // Prescaler set to 10: FADC: 16 MHz/10 = 1.6MHz
@@ -92,8 +93,7 @@ void HW_Init(void)
     // **************************************************************
     // Timer 1: 25 ms timer for refresh the signals
     // **************************************************************
-    TIM1_PSCRL = 15;
-	TIM1_CR1_bits.DIR = 1;
+    TIM1_PSCRL = 16;
 
     TIM1_ARRH = (TIMER1_TOP >> 8) & 0xFF;
     TIM1_ARRL = (TIMER1_TOP     ) & 0xFF;
@@ -109,15 +109,10 @@ void HW_Init(void)
     // **************************************************************
 
     // prescaler = 16
-    TIM2_PSCR_bits.PSC = 8;
+    TIM2_PSCR_bits.PSC = 4;
 
-    // update generation is needed to have the prescaler
-    // buffered
-    TIM2_EGR_bits.UG = 1;
-
-	// one shot mode
+	// set one shot mode
     TIM2_CR1_bits.OPM = 1;
-	TIM2_CR1_bits.ARPE = 1;
 }
 
 

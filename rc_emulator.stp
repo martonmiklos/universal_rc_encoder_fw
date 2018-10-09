@@ -310,11 +310,6 @@ Next=Root.Source Files.eeprom.c
 [Root.Source Files.eeprom.c]
 ElemType=File
 PathName=eeprom.c
-Next=Root.Source Files.emulator.c
-
-[Root.Source Files.emulator.c]
-ElemType=File
-PathName=emulator.c
 Next=Root.Source Files.init.c
 
 [Root.Source Files.init.c]
@@ -325,6 +320,11 @@ Next=Root.Source Files.interrupt.c
 [Root.Source Files.interrupt.c]
 ElemType=File
 PathName=interrupt.c
+Next=Root.Source Files.main.c
+
+[Root.Source Files.main.c]
+ElemType=File
+PathName=main.c
 Next=Root.Source Files.stm8_interrupt_vector.c
 
 [Root.Source Files.stm8_interrupt_vector.c]

@@ -2,9 +2,9 @@
 
 #include "eeprom.h"
 
-static uint16_t adcMin[ADC_CHANNEL_COUNT];
-static uint16_t adcMax[ADC_CHANNEL_COUNT];
-static uint16_t adcCenter[ADC_CHANNEL_COUNT];
+static uint16_t adcMin[ADC_CHANNEL_COUNT] = {0, 0, 0, 0, 0};
+static uint16_t adcCenter[ADC_CHANNEL_COUNT] = {512, 512, 512, 512, 512};
+static uint16_t adcMax[ADC_CHANNEL_COUNT] = {1023, 1023, 1023, 1023, 1023};
 
 // from adc.c
 extern uint16_t adcData[ADC_CHANNEL_COUNT];
@@ -74,11 +74,19 @@ void saveCalibration()
  */
 uint8_t linearizedValue(uint8_t channel)
 {
+	uint16_t current = adcData[channel];
     if (adcMin[channel] < adcMax[channel]) {
-
-    } else {
-
+		if (current < adcMin[channel])
+			current = adcMin[channel];
+		else if (current > adcMax[channel])
+			current = adcMax[channel];
+		return 100.0 * ((float)(current - adcMin[channel]) / (float)(adcMax[channel] - adcMin[channel]));
     }
-    return 0;
+	
+	if (current < adcMax[channel])
+		current = adcMax[channel];
+	else if (current > adcMin[channel])
+		current = adcMin[channel];
+	return 100.0 * ((float)(current - adcMax[channel]) / (float)(adcMin[channel] - adcMax[channel]));
 }
 

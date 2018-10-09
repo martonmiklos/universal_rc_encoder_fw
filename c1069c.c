@@ -87,7 +87,7 @@ void C1069C_calculateBuffer(void)
         signalPtr++;
     }
 
-    if (HORN_ON) {
+    if (HORN_ON == BTN_ACTIVE) {
         *signalPtr = 168;
         signalPtr++;
         *signalPtr = 500;
@@ -95,6 +95,7 @@ void C1069C_calculateBuffer(void)
         *signalPtr = 168;
         signalPtr++;
         *signalPtr = 500;
+		signalPtr++;
     }
 
     *signalPtr = 168;
