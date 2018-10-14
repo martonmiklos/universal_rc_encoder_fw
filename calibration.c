@@ -47,6 +47,16 @@ void loadCalibration()
         eeAddr += 2;
         adcMax[i] = EEReadU16(eeAddr);
         eeAddr += 2;
+		
+		if (adcMin[i] == 0xFFFF 
+			&& adcCenter[i] == 0xFFFF 
+			&& adcMax[i] == 0xFFFF) {
+			// default EEPROM contents detected ->
+			// set some sane default values
+			adcMin[i] = 0;
+			adcCenter[i] = 512;
+			adcMax[i] = 1023;
+		}
     }
 }
 

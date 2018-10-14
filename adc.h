@@ -13,6 +13,7 @@ typedef enum {
     ADC_CH4
 } ADC_CH_t;
 
+void startADC_Cycle(void);
 @far @interrupt void ADC_CompleteISR(void);
 
 uint8_t isADCScanCompleted(void);

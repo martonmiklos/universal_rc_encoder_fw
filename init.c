@@ -31,18 +31,13 @@ void HW_Init(void)
     CLK_PCKENR2 = 0b00001000;
 
     /*
-     * PA3: GPIO_Input       - SEED_SIGNAL_3
-     * PA2: GPIO_Input       - SEED_SIGNAL_2
-     * PA1:                  - Unused
+     * PA3: GPIO_Output		 - RED_LED
+     * PA2: NC
+     * PA1:                  - CAL BTN
      */
-    /*
-     * PB4: GPIO_Output      - RED_LED
-     * PB5: GPIO_Input       - SEED_SIGNAL_1
-     */
-    PB_DDR = 0b00010000;
-
-    // set RED_LED to high (LEDs are active low)
-    PB_ODR = 0b00010000;
+	PA_DDR = 0b00001000;
+	// pullup on cal button, RED_LED: OC
+    PA_CR1 = 0b00001010;
 
     /*
      * PC7: GPIO_Input      - BTN3

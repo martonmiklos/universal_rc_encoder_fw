@@ -17,47 +17,24 @@ int main(void)
 {
     HW_Init();
 
-    /*PD_DDR = 255;
-    while (1) {
-        PD_ODR_bits.ODR3 = 0;
-        __delay_ms(1000);
-        PD_ODR_bits.ODR3 = 1;
-        __delay_ms(1000);
-    }*/
-
     GlobalInterruptEnable();
 
-    /*if (CAL_SWITCH == 0) {
+    if (CAL_SWITCH == 0) {
         // we start with a calibration session
         initCalibration();
         while (CAL_SWITCH == 0) {
+			startADC_Cycle();
+			while (!adcScanCompleteFlag) {}
             calibrationCycle();
         }
         saveCalibration();
     } else {
-        //loadCalibration();
-    }*/
+        loadCalibration();
+    }
 
     while (1) {    
         if (refreshSignal) {
-			adcScanCompleteFlag = 0;
-
-			currentADCChannel = ADC_CH0;
-
-			// disable the ADC just in case!
-			ADC_CR1_bits.ADON = 0;
-		
-			// set channel
-			ADC_CSR_bits.CH = (currentADCChannel + 2);
-		
-			// clear the flag
-			ADC_CSR_bits.EOC = 0;
-		
-			//power up ADC
-			ADC_CR1_bits.ADON = 1;
-		
-			// write one again to start the conversion
-			ADC_CR1_bits.ADON = 1;
+			startADC_Cycle();
 			while (!adcScanCompleteFlag) {}
             switch (emulatorMode) {
             case EmulatorMode_C1069:

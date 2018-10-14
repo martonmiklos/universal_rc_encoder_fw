@@ -7,6 +7,28 @@ uint16_t adcData[ADC_CHANNEL_COUNT];
 
 volatile uint8_t adcScanCompleteFlag = 0;
 
+void startADC_Cycle(void)
+{
+	adcScanCompleteFlag = 0;
+
+	currentADCChannel = ADC_CH0;
+
+	// disable the ADC just in case!
+	ADC_CR1_bits.ADON = 0;
+
+	// set channel
+	ADC_CSR_bits.CH = (currentADCChannel + 2);
+
+	// clear the flag
+	ADC_CSR_bits.EOC = 0;
+
+	//power up ADC
+	ADC_CR1_bits.ADON = 1;
+
+	// write one again to start the conversion
+	ADC_CR1_bits.ADON = 1;
+}
+
 @far @interrupt void ADC_CompleteISR(void)
 {
 	// clear the flag
