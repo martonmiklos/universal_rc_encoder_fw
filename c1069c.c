@@ -1,6 +1,7 @@
 #include "c1069c.h"
 
 #include "calibration.h"
+#include "emulator.h"
 #include "hwconfig.h"
 
 /**
@@ -27,7 +28,7 @@ There is a static end part:
 - 168 us L 500 us H 168 us L -> H
  */
 
-extern uint16_t signalBuffer[48];
+extern uint16_t signalBuffer[SIGNALBUFFER_SIZE];
 extern uint16_t *signalPtr;
 
 void C1069C_calculateBuffer(void)

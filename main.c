@@ -5,8 +5,9 @@
 #include "init.h"
 #include "hwconfig.h"
 #include "ppm.h"
+#include "tx2.h"
 
-uint16_t signalBuffer[48];
+uint16_t signalBuffer[SIGNALBUFFER_SIZE] = {0};
 uint16_t *signalPtr = signalBuffer;
 uint8_t refreshSignal = 1;
 EmulatorMode_t emulatorMode = EmulatorMode_C1069;
@@ -43,6 +44,9 @@ void main(void)
                 break;
 			case EmulatorMode_PPM:
 				PPM_calculateBuffer();
+				break;
+			case EmulatorMode_TX2:
+				TX2_calculateBuffer();
 				break;
             default:
                 break;

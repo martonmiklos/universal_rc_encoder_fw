@@ -6,6 +6,7 @@ Written in C using the Cosmic C compiler.
 Supported protocols:
  * [Nikko C1069C](http://users.atw.hu/balubati/blog/index.php?entry=entry180227-205500)
  * Standard PPM
+ * [TX2](https://www.hobbielektronika.hu/forum/getfile.php?id=100402)
 
 ## Calibration
 
@@ -21,14 +22,13 @@ When releasing the cal button the end values stored to the EEPROM.
 ## Implementation details
 
 Timer1 is used to send events for the frame start periods (with 30 ms interval now).
-
-When a frame peroid is started the ADC channels scanned..
-
-Then the encoding rutine outputs the encoded waveform to the signalBuffer array in the following format:
-
-
 Timer2 is used as a 1us tick timer. 
-In the main loop the signalBuffer is parsed:
+
+When a frame peroid is started the ADC channels scanned.
+
+Then the encoding rutine outputs the encoded digital waveform to the signalBuffer array.
+
+Then in the main loop the signalBuffer is parsed:
  * At each read the encoded signal will be toggled
  * The buffer amount of us to be waited
  * The encoded line toggled again

@@ -1,9 +1,10 @@
 #include "ppm.h"
 
 #include "calibration.h"
+#include "emulator.h"
 #include "stdint.h"
 
-extern uint16_t signalBuffer[48];
+extern uint16_t signalBuffer[SIGNALBUFFER_SIZE];
 extern uint16_t *signalPtr;
 
 void PPM_calculateBuffer(void)
