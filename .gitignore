@@ -1,42 +1,3 @@
-<<<<<<< HEAD
-# Prerequisites
-*.d
-
-# Object files
-*.o
-*.ko
-*.obj
-*.elf
-
-# Linker output
-*.ilk
-*.map
-*.exp
-
-# Precompiled Headers
-*.gch
-*.pch
-
-# Libraries
-*.lib
-*.a
-*.la
-*.lo
-
-# Shared objects (inc. Windows DLLs)
-*.dll
-*.so
-*.so.*
-*.dylib
-
-# Executables
-*.exe
-*.out
-*.app
-*.i*86
-*.x86_64
-*.hex
-
 # Debug files
 *.dSYM/
 *.su
@@ -91,7 +52,7 @@ TAGS*
 *.cdb
 
 tools/.idea
-=======
+
 # Prerequisites
 *.d
 
@@ -184,4 +145,3 @@ checkres.spy
 *.wed
 
 buildnumber.h
->>>>>>> ddeb04b8ccdad606ae9d36b1f49545aa9cdd69c0
