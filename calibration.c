@@ -1,10 +1,11 @@
 #include "calibration.h"
 
 #include "eeprom.h"
+#include "eeprom_map.h"
 
-static uint16_t adcMin[ADC_CHANNEL_COUNT] = {0, 0, 0, 0, 0};
-static uint16_t adcCenter[ADC_CHANNEL_COUNT] = {512, 512, 512, 512, 512};
-static uint16_t adcMax[ADC_CHANNEL_COUNT] = {1023, 1023, 1023, 1023, 1023};
+static uint16_t adcMin[ADC_CHANNEL_COUNT];
+static uint16_t adcCenter[ADC_CHANNEL_COUNT];
+static uint16_t adcMax[ADC_CHANNEL_COUNT];
 
 // from adc.c
 extern uint16_t adcData[ADC_CHANNEL_COUNT];

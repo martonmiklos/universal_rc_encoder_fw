@@ -325,6 +325,11 @@ Next=Root.Source Files.main.c
 [Root.Source Files.main.c]
 ElemType=File
 PathName=main.c
+Next=Root.Source Files.ppm.c
+
+[Root.Source Files.ppm.c]
+ElemType=File
+PathName=ppm.c
 Next=Root.Source Files.stm8_interrupt_vector.c
 
 [Root.Source Files.stm8_interrupt_vector.c]
@@ -452,6 +457,11 @@ Next=Root.Include Files.iostm8s003f3.h
 [Root.Include Files.iostm8s003f3.h]
 ElemType=File
 PathName=iostm8s003f3.h
+Next=Root.Include Files.ppm.h
+
+[Root.Include Files.ppm.h]
+ElemType=File
+PathName=ppm.h
 Next=Root.Include Files.stdint.h
 
 [Root.Include Files.stdint.h]

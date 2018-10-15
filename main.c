@@ -4,6 +4,7 @@
 #include "emulator.h"
 #include "init.h"
 #include "hwconfig.h"
+#include "ppm.h"
 
 uint16_t signalBuffer[48];
 uint16_t *signalPtr = signalBuffer;
@@ -13,7 +14,7 @@ EmulatorMode_t emulatorMode = EmulatorMode_C1069;
 extern volatile uint8_t adcScanCompleteFlag;
 extern ADC_CH_t currentADCChannel;
 
-int main(void)
+void main(void)
 {
     HW_Init();
 
@@ -40,6 +41,9 @@ int main(void)
             case EmulatorMode_C1069:
                 C1069C_calculateBuffer();
                 break;
+			case EmulatorMode_PPM:
+				PPM_calculateBuffer();
+				break;
             default:
                 break;
             }
