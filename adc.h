@@ -4,7 +4,8 @@
 #include "iostm8s003f3.h"
 #include "stdint.h"
 
-#define ADC_CHANNEL_COUNT 5
+#include "emulator.h"
+
 typedef enum {
     ADC_CH0,
     ADC_CH1,

@@ -1,6 +1,5 @@
 #include "adc.h"
 
-
 ADC_CH_t currentADCChannel = 0;
 
 uint16_t adcData[ADC_CHANNEL_COUNT];

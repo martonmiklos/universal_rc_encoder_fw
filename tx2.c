@@ -12,7 +12,7 @@ void TX2_calculateBuffer(void)
 	uint8_t i = 0;
 	uint8_t steer = linearizedValue(STEER_CHANNEL);
     uint8_t throttle = linearizedValue(THROTTLE_CHANNEL);
-	
+	signalPtr = signalBuffer;
 	// send 4 pcs W2 (500Hz 75% Duty cycle) as a start impulse	
 	for (; i<4; i++) {
 		*signalPtr = 1500;
