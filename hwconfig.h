@@ -16,6 +16,8 @@
 #define RED_LED                              PA_ODR_bits.ODR3
 #define RED_LED_port                         PA_ODR
 #define RED_LED_port_mask                    (1<<3)
+#define RED_LED_ACTIVE                       0
+#define RED_LED_INACTIVE                     1 // TOD swap for the final design
 
 #define ENCODED_SIGNAL                       PD_ODR_bits.ODR4
 #define ENCODED_SIGNAL_port                  PD_ODR

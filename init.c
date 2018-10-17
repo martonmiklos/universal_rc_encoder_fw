@@ -38,6 +38,7 @@ void HW_Init(void)
 	PA_DDR = 0b00001000;
 	// pullup on cal button, RED_LED: OC
     PA_CR1 = 0b00001010;
+	PA_ODR = 0b00001000; // TODO remove for final design
 
     /*
      * PC7: GPIO_Input      - BTN3

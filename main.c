@@ -17,6 +17,7 @@ extern ADC_CH_t currentADCChannel;
 
 void main(void)
 {
+	uint8_t calPressCounter = 0, i;
     HW_Init();
 
     GlobalInterruptEnable();
@@ -34,7 +35,44 @@ void main(void)
         loadCalibration();
     }
 
-    while (1) {    
+    while (1) {
+		if (CAL_SWITCH == 0) {
+			// CAL btn pressed during operation -> 
+			// change mode if got pressed for a while enough
+			calPressCounter = 21; // wait ~1000 ms until switch mode
+			while (calPressCounter) {
+				calPressCounter--;
+				// load 50 ms wait to the TIM2
+				TIM2_CNTRL = 0xC3;
+                TIM2_CNTRH = 0x50;
+				TIM2_SR1_bits.UIF = 0;
+                TIM2_CR1_bits.CEN = 1;
+                while (!TIM2_SR1_bits.UIF) {
+				    if (CAL_SWITCH) {
+						// if cal btn released break and skip mode change
+						calPressCounter = 0;
+						break;
+					}
+				}
+				TIM2_CR1_bits.CEN = 0;
+				if (calPressCounter == 1) {
+					emulatorMode++;
+					if (emulatorMode == EmulatorMode_Invalid) {
+						emulatorMode = EmulatorMode_C1069;
+					}
+					
+					for (i = 0; i<emulatorMode; i++) {
+						RED_LED = RED_LED_ACTIVE;
+						__delay_ms(500);
+						RED_LED = RED_LED_INACTIVE;
+						__delay_ms(500);
+					}
+					while (CAL_SWITCH == 0) {}
+					__delay_ms(100);
+				}
+			}
+		}
+		
         if (refreshSignal) {
 			startADC_Cycle();
 			while (!adcScanCompleteFlag) {}
