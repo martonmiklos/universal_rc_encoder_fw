@@ -1,6 +1,8 @@
 #include "c1069c.h"
 #include "calibration.h"
 #include "delay.h"
+#include "eeprom.h"
+#include "eeprom_map.h"
 #include "emulator.h"
 #include "init.h"
 #include "hwconfig.h"
@@ -19,6 +21,10 @@ void main(void)
 {
 	uint8_t calPressCounter = 0, i;
     HW_Init();
+	
+	emulatorMode = EEReadU8(EEAddr_Mode);
+	if (emulatorMode >= EmulatorMode_Invalid)
+		emulatorMode = EmulatorMode_C1069;
 
     GlobalInterruptEnable();
 
@@ -61,12 +67,13 @@ void main(void)
 						emulatorMode = EmulatorMode_C1069;
 					}
 					
-					for (i = 0; i<emulatorMode; i++) {
+					for (i = 0; i<(emulatorMode+1); i++) {
 						RED_LED = RED_LED_ACTIVE;
 						__delay_ms(500);
 						RED_LED = RED_LED_INACTIVE;
 						__delay_ms(500);
 					}
+					EEWriteU8(EEAddr_Mode, emulatorMode);
 					while (CAL_SWITCH == 0) {}
 					__delay_ms(100);
 				}

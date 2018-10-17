@@ -39,7 +39,7 @@ void calibrationCycle(void)
 
 void loadCalibration()
 {
-    uint16_t eeAddr = 0;
+    uint16_t eeAddr = EEAddr_Cal;
     uint8_t i = 0;
     for (i = 0; i<ADC_CHANNEL_COUNT; i++) {
         adcMin[i] = EEReadU16(eeAddr);

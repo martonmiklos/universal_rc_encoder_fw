@@ -7,6 +7,9 @@ Supported protocols:
  * [Nikko C1069C](http://users.atw.hu/balubati/blog/index.php?entry=entry180227-205500)
  * Standard PPM
  * [TX2](https://www.hobbielektronika.hu/forum/getfile.php?id=100402)
+ 
+Planned:
+ * TAIYO 88-T 9339K
 
 ## Calibration
 
@@ -18,6 +21,10 @@ Then all sticks needs to be moved between the two ends and should be centered th
 
 When releasing the cal button the end values stored to the EEPROM.
 
+## Mode switching
+You can switch between the operation modes with the cal button/switch:
+ * If you press the button (after power up) for least 1 sec the LED will blink 1/2/3 times indicating the current mode
+ * After releasing the button the transmitter will output the selected mode
  
 ## Implementation details
 

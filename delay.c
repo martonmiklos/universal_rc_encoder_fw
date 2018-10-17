@@ -13,7 +13,7 @@
 void __delay_cycl(const uint16_t ticks)
 {
     // ldw X, __ticks ; insert automaticaly
-    //_asm("nop\n $N:\n decw X\n jrne $L\n nop\n ", ticks);
+    _asm("nop\n $N:\n decw X\n jrne $L\n nop\n ", ticks);
 }
 
 void __delay_us(const uint16_t us)
