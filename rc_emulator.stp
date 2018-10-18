@@ -336,6 +336,11 @@ Next=Root.Source Files.stm8_interrupt_vector.c
 [Root.Source Files.stm8_interrupt_vector.c]
 ElemType=File
 PathName=stm8_interrupt_vector.c
+Next=Root.Source Files.taiyo_88t.c
+
+[Root.Source Files.taiyo_88t.c]
+ElemType=File
+PathName=taiyo_88t.c
 Next=Root.Source Files.tx2.c
 
 [Root.Source Files.tx2.c]

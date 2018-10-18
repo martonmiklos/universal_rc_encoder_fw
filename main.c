@@ -7,6 +7,7 @@
 #include "init.h"
 #include "hwconfig.h"
 #include "ppm.h"
+#include "taiyo_88t.h"
 #include "tx2.h"
 
 uint16_t signalBuffer[SIGNALBUFFER_SIZE] = {0};
@@ -92,6 +93,9 @@ void main(void)
 				break;
 			case EmulatorMode_TX2:
 				TX2_calculateBuffer();
+				break;
+			case EmulatorMode_Taiyo_88T:
+				TAIYO88T_calculateBuffer();
 				break;
             default:
                 break;

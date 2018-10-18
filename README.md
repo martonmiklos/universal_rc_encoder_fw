@@ -6,7 +6,7 @@ Written in C using the Cosmic C compiler.
 Supported protocols:
  * [Nikko C1069C](http://users.atw.hu/balubati/blog/index.php?entry=entry180227-205500)
  * Standard PPM
- * [TX2](https://www.hobbielektronika.hu/forum/getfile.php?id=100402)
+ * [TX2](https://www.hobbielektronika.hu/forum/getfile.php?id=100402) compatible with Pericom PT8A978P
  
 Planned:
  * TAIYO 88-T 9339K
